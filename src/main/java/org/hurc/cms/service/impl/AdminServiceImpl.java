@@ -9,6 +9,7 @@ import org.hurc.cms.repository.UserRepository;
 import org.hurc.cms.service.AdminService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class AdminServiceImpl implements AdminService {
   private final ModelMapper modelMapper;
 
   @Override
+  @Transactional
   public List<UserDto> getAllUsers() {
     List<User> users = userRepository.findAll();
     return users.stream().map(user -> modelMapper.map(user, UserDto.class)).toList();

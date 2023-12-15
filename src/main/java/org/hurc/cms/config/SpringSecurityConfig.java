@@ -29,7 +29,10 @@ public class SpringSecurityConfig  {
       "/user/home",
       "/uploads/**",
       "/assets/**",
-      "/**"
+      "/",
+      "/api-docs/**",
+      "/swagger-ui-custom.html",
+      "/swagger-ui/**"
   };
   private JwtAuthenticationEntryPoint authenticationEntryPoint;
 
