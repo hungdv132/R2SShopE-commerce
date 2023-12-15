@@ -29,7 +29,7 @@ public class SpringSecurityConfig  {
       "/user/home",
       "/uploads/**",
       "/assets/**",
-      "/"
+      "/**"
   };
   private JwtAuthenticationEntryPoint authenticationEntryPoint;
 
