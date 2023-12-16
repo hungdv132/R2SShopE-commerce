@@ -77,6 +77,7 @@ public class AddressServiceImpl implements AddressService {
         ((CustomUserDetails) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal()).getUser();
+
     Address address = addressRepository.findByIdAndUserId(addressId, user.getId()).orElseThrow(
         () -> new CmsException(HttpStatus.NOT_FOUND, "Address is not found")
     );

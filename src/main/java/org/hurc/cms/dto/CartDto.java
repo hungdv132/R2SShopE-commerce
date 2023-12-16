@@ -4,22 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hurc.cms.entity.CartLineItem;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@NoArgsConstructor
+public class CartDto {
   private Long id;
-  private String name;
-  private String username;
-  private String email;
-  private boolean status;
   private Date createdDate;
-  private Set<RoleDto> roles;
+  private List<CartLineItem> cartLineItems;
 }

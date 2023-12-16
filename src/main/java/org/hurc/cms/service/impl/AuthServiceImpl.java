@@ -3,9 +3,11 @@ package org.hurc.cms.service.impl;
 import lombok.AllArgsConstructor;
 import org.hurc.cms.dto.LoginDto;
 import org.hurc.cms.dto.RegisterDto;
+import org.hurc.cms.entity.Cart;
 import org.hurc.cms.entity.Role;
 import org.hurc.cms.entity.User;
 import org.hurc.cms.exception.CmsException;
+import org.hurc.cms.repository.CartRepository;
 import org.hurc.cms.repository.RoleRepository;
 import org.hurc.cms.repository.UserRepository;
 import org.hurc.cms.security.JwtTokenProvider;
@@ -29,6 +31,7 @@ public class AuthServiceImpl implements AuthService {
   private PasswordEncoder passwordEncoder;
   private AuthenticationManager authenticationManager;
   private JwtTokenProvider jwtTokenProvider;
+  private CartRepository cartRepository;
   @Override
   public String register(RegisterDto registerDto) {
     // check username is already exists in database
@@ -53,7 +56,13 @@ public class AuthServiceImpl implements AuthService {
 
     user.setRoles(roles);
 
-    userRepository.save(user);
+    User newUser = userRepository.save(user);
+
+
+    Cart cart = new Cart();
+    cart.setUser(newUser);
+    cartRepository.save(cart);
+
 
     return "User Registered Successfully!.";
   }

@@ -47,8 +47,11 @@ public class User {
   )
   private Set<Role> roles;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
   private List<Address> addresses = new ArrayList<>();
+
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+  private Cart cart;
 
   @PrePersist
   public void prePersist() {
