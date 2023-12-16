@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -28,12 +29,29 @@ public class CartServiceImpl implements CartService {
   private final ModelMapper modelMapper;
 
   @Override
+  public List<CartLineItemDto> getItems() {
+    User user =
+        ((CustomUserDetails) SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getPrincipal()).getUser();
+
+    Cart cart = cartRepository.findCartByUserId(user.getId()).orElseThrow(
+        () -> new ResourceNotFoundException("Cart not found with user"));
+
+    return cart.getCartLineItems()
+        .stream()
+        .map(item -> modelMapper.map(item, CartLineItemDto.class))
+        .toList();
+  }
+
+  @Override
   @Transactional
   public CartLineItemDto addItem(Long variantProductId, CartLineItemDto cartLineItemDto) {
     User user =
         ((CustomUserDetails) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal()).getUser();
+
     Cart cart = cartRepository.findCartByUserId(user.getId()).orElseGet(() -> {
       Cart newCart = new Cart();
       newCart.setUser(user);
@@ -43,6 +61,7 @@ public class CartServiceImpl implements CartService {
     VariantProduct variantProduct = variantProductRepository.findById(variantProductId).orElseThrow(
         () -> new ResourceNotFoundException("Product is not found with id: " + variantProductId)
     );
+
     CartLineItem item = cart.getCartLineItems().stream()
         .filter(lineItem -> Objects.equals(lineItem.getVariantProduct(), variantProduct))
         .findFirst()
