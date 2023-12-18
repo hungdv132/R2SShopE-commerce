@@ -12,10 +12,8 @@ import org.hurc.cms.repository.UserCourseRepository;
 import org.hurc.cms.security.CustomUserDetails;
 import org.hurc.cms.service.AssignmentService;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

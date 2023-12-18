@@ -40,6 +40,7 @@ public class CartServiceImpl implements CartService {
 
     return cart.getCartLineItems()
         .stream()
+        .filter(item -> !item.isDeleted())
         .map(item -> modelMapper.map(item, CartLineItemDto.class))
         .toList();
   }
