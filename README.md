@@ -1,5 +1,4 @@
-# mockprojectJBE
-Mock project for JBE 08 course - group 2
+Ứng dụng thương mại điển tử R2Sshop
 
 ### Swagger U
 [Link](https://www.baeldung.com/spring-rest-openapi-documentation)
